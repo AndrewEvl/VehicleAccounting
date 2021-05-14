@@ -4,22 +4,23 @@ namespace VehicleAccounting
 {
     class DB
     {
-        MySqlConnection connection = new ("server=localhost;port=3306;username=root;password=root;database=car_library");
-        
-        public void openConnection()
+        private readonly MySqlConnection _connection = new("server=localhost;port=3306;username=root;password=root;database=car_library");
+
+        public void OpenConnection()
         {
-            if(connection.State == System.Data.ConnectionState.Closed)
-                connection.Open();
-        }
-        
-        public void closeConnection()
-        {
-            if(connection.State == System.Data.ConnectionState.Open)
-                connection.Close();
+            if (_connection.State == System.Data.ConnectionState.Closed)
+                _connection.Open();
         }
 
-        public MySqlConnection getConnection() {
-            return connection;
+        public void CloseConnection()
+        {
+            if (_connection.State == System.Data.ConnectionState.Open)
+                _connection.Close();
+        }
+
+        public MySqlConnection GetConnection()
+        {
+            return _connection;
         }
     }
 }
