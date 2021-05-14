@@ -7,7 +7,7 @@ namespace VehicleAccounting
 {
     public partial class Form1 : Form
     {
-        private ApplicationRepository _ar = new ();
+        private readonly ApplicationRepository _ar = new ();
 
         public Form1()
         {
@@ -43,32 +43,16 @@ namespace VehicleAccounting
                     Convert.ToString(modelTable.Rows[i]["name"])));
             }
             
-
             LoadData(carTable);
         }
 
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Item modelValue = (Item) modelDropDown.SelectedItem;
-            Item brandValue = (Item) brandDropDown.SelectedItem;
+            Item selectModel = (Item) modelDropDown.SelectedItem;
+            Item selectBrand = (Item) brandDropDown.SelectedItem;
 
-            DB db = new DB();
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-            DataTable carTable = new DataTable();
-            MySqlCommand findCar = new MySqlCommand(
-                "Select car.id AS id, co.first_name AS firstName, co.last_name AS lastName, car.number_car AS numberCar, cb.name AS carBrand, cm.name AS carModel FROM car INNER JOIN car_model cm on car.model_id = cm.id INNER JOIN car_owner co on car.owner_id = co.id INNER JOIN car_brand cb on cm.car_brand_id = cb.id WHERE car.brand_id = @bId AND car.model_id = @mId;",
-                db.GetConnection());
-            findCar.Parameters.Add("@bId", MySqlDbType.Int64).Value = brandValue.Id;
-            findCar.Parameters.Add("@mId", MySqlDbType.Int64).Value = modelValue.Id;
-
-            db.OpenConnection();
-
-            adapter.SelectCommand = findCar;
-            adapter.Fill(carTable);
-
-            db.CloseConnection();
+            DataTable carTable = _ar.FindCarBeModelIdAndBrandId(selectModel.Id, selectBrand.Id);
 
             LoadData(carTable);
         }
@@ -79,26 +63,10 @@ namespace VehicleAccounting
             dataGridView1.DataSource = table;
         }
 
-        private void searchLastNameButtonClick(object sender, EventArgs e)
+        private void SearchLastNameButtonClick(object sender, EventArgs e)
         {
-            String searchStr = searchText.Text;
-
-            DB db = new DB();
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-            DataTable carTable = new DataTable();
-            MySqlCommand findCar = new MySqlCommand(
-                "Select car.id AS id, co.first_name AS firstName, co.last_name AS lastName, car.number_car AS numberCar, cb.name AS carBrand, cm.name AS carModel FROM car INNER JOIN car_model cm on car.model_id = cm.id INNER JOIN car_owner co on car.owner_id = co.id INNER JOIN car_brand cb on cm.car_brand_id = cb.id WHERE co.last_name LIKE @oln;",
-                db.GetConnection());
-            findCar.Parameters.Add("@oln", MySqlDbType.VarChar).Value = searchStr;
-
-            db.OpenConnection();
-
-            adapter.SelectCommand = findCar;
-            adapter.Fill(carTable);
-
-            db.CloseConnection();
-
+            String ownerLastName = searchText.Text;
+            DataTable carTable = _ar.FindCarByOwnerLastName(ownerLastName);
             LoadData(carTable);
         }
 

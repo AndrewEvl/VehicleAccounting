@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using MySql.Data.MySqlClient;
 
 namespace VehicleAccounting
@@ -14,11 +15,10 @@ namespace VehicleAccounting
             MySqlCommand finaAllBrandQuery = new MySqlCommand("SELECT * FROM car_brand", _db.GetConnection());
 
             _db.OpenConnection();
-
             _adapter.SelectCommand = finaAllBrandQuery;
             _adapter.Fill(table);
-
             _db.CloseConnection();
+            
             return table;
         }
 
@@ -32,11 +32,10 @@ namespace VehicleAccounting
             findModelByBrandIdQuery.Parameters.Add("@bId", MySqlDbType.Int64).Value = brandId;
 
             _db.OpenConnection();
-
             _adapter.SelectCommand = findModelByBrandIdQuery;
             _adapter.Fill(modelTable);
-
             _db.CloseConnection();
+            
             return modelTable;
         }
 
@@ -50,11 +49,44 @@ namespace VehicleAccounting
             findCarByBrandId.Parameters.Add("@bId", MySqlDbType.Int64).Value = brandId;
 
             _db.OpenConnection();
-
             _adapter.SelectCommand = findCarByBrandId;
             _adapter.Fill(carTable);
-
             _db.CloseConnection();
+            
+            return carTable;
+        }
+
+        public DataTable FindCarBeModelIdAndBrandId(int modelId, int brandId)
+        {
+            DataTable carTable = new DataTable();
+            
+            MySqlCommand findCar = new MySqlCommand(
+                "Select car.id AS id, co.first_name AS firstName, co.last_name AS lastName, car.number_car AS numberCar, cb.name AS carBrand, cm.name AS carModel FROM car INNER JOIN car_model cm on car.model_id = cm.id INNER JOIN car_owner co on car.owner_id = co.id INNER JOIN car_brand cb on cm.car_brand_id = cb.id WHERE car.brand_id = @bId AND car.model_id = @mId;",
+                _db.GetConnection());
+            findCar.Parameters.Add("@bId", MySqlDbType.Int64).Value = brandId;
+            findCar.Parameters.Add("@mId", MySqlDbType.Int64).Value = modelId;
+
+            _db.OpenConnection();
+            _adapter.SelectCommand = findCar;
+            _adapter.Fill(carTable);
+            _db.CloseConnection();
+
+            return carTable;
+        }
+
+        public DataTable FindCarByOwnerLastName(String ownerLastName)
+        {
+            DataTable carTable = new DataTable();
+            MySqlCommand findCar = new MySqlCommand(
+                "Select car.id AS id, co.first_name AS firstName, co.last_name AS lastName, car.number_car AS numberCar, cb.name AS carBrand, cm.name AS carModel FROM car INNER JOIN car_model cm on car.model_id = cm.id INNER JOIN car_owner co on car.owner_id = co.id INNER JOIN car_brand cb on cm.car_brand_id = cb.id WHERE co.last_name LIKE @oln;",
+                _db.GetConnection());
+            findCar.Parameters.Add("@oln", MySqlDbType.VarChar).Value = ownerLastName;
+
+            _db.OpenConnection();
+            _adapter.SelectCommand = findCar;
+            _adapter.Fill(carTable);
+            _db.CloseConnection();
+
             return carTable;
         }
     }

@@ -286,7 +286,7 @@
             this.searthButton.TabIndex = 6;
             this.searthButton.Text = "Searth owner";
             this.searthButton.UseVisualStyleBackColor = true;
-            this.searthButton.Click += new System.EventHandler(this.searchLastNameButtonClick);
+            this.searthButton.Click += new System.EventHandler(this.SearchLastNameButtonClick);
             // 
             // label4
             // 
