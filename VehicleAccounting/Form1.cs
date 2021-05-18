@@ -7,7 +7,7 @@ namespace VehicleAccounting
 {
     public partial class Form1 : Form
     {
-        private readonly ApplicationRepository _ar = new ();
+        private readonly ApplicationRepository _ar = new();
 
         public Form1()
         {
@@ -18,7 +18,7 @@ namespace VehicleAccounting
         private void Form1_Load()
         {
             DataTable allBrandTable = _ar.FindAllBrand();
-            
+
             for (int i = 0; i < allBrandTable.Rows.Count; i++)
             {
                 brandDropDown.Items.Add(new Item(Convert.ToInt16(allBrandTable.Rows[i]["id"]),
@@ -33,7 +33,7 @@ namespace VehicleAccounting
         {
             modelDropDown.Items.Clear();
             Item selectBrand = (Item) brandDropDown.SelectedItem;
-            
+
             DataTable modelTable = _ar.FindModelByBrandId(selectBrand.Id);
             DataTable carTable = _ar.FindCarByBrandId(selectBrand.Id);
 
@@ -42,7 +42,7 @@ namespace VehicleAccounting
                 modelDropDown.Items.Add(new Item(Convert.ToInt16(modelTable.Rows[i]["id"]),
                     Convert.ToString(modelTable.Rows[i]["name"])));
             }
-            
+
             LoadData(carTable);
         }
 
@@ -72,61 +72,20 @@ namespace VehicleAccounting
 
         private void SearchCarNumberButtonClick(object sender, EventArgs e)
         {
-            String searchStr = seathCarNumberField.Text;
-
-            DB db = new DB();
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-            DataTable carTable = new DataTable();
-            MySqlCommand findCar = new MySqlCommand(
-                "Select car.id AS id, co.first_name AS firstName, co.last_name AS lastName, car.number_car AS numberCar, cb.name AS carBrand, cm.name AS carModel FROM car INNER JOIN car_model cm on car.model_id = cm.id INNER JOIN car_owner co on car.owner_id = co.id INNER JOIN car_brand cb on cm.car_brand_id = cb.id WHERE car.number_car LIKE @cn;",
-                db.GetConnection());
-            findCar.Parameters.Add("@cn", MySqlDbType.VarChar).Value = searchStr;
-
-            db.OpenConnection();
-
-            adapter.SelectCommand = findCar;
-            adapter.Fill(carTable);
-
-            db.CloseConnection();
-
+            String carNumber = seathCarNumberField.Text;
+            DataTable carTable = _ar.FindCarByNumber(carNumber);
             LoadData(carTable);
         }
 
         private void saveBrand_Click(object sender, EventArgs e)
         {
             String newBrandName = textBox1.Text;
-
-            DB db = new DB();
-            DataTable brandList = new DataTable();
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-            MySqlCommand findBrand = new MySqlCommand(
-                "SELECT * FROM car_brand WHERE name LIKE @name",
-                db.GetConnection());
-            findBrand.Parameters.Add("@name", MySqlDbType.VarChar).Value = newBrandName;
-
-            db.OpenConnection();
-
-            adapter.SelectCommand = findBrand;
-            adapter.Fill(brandList);
+            DataTable brandList = _ar.FindBrandByName(newBrandName);
 
             if (brandList.Rows.Count == 0)
-            {
-                MySqlCommand saveBrand = new MySqlCommand(
-                    "INSERT INTO car_brand (name) VALUES (@name);",
-                    db.GetConnection());
-
-                saveBrand.Parameters.Add("@name", MySqlDbType.VarChar).Value = newBrandName;
-
-                MessageBox.Show(saveBrand.ExecuteNonQuery() == 1 ? @"OK" : @"Some problem");
-            }
+                _ar.SaveBrand(newBrandName);
             else
-            {
                 MessageBox.Show(@"Such a brand (" + newBrandName + @") already exists");
-            }
-
-            db.CloseConnection();
             RefreshData();
         }
 
@@ -136,6 +95,20 @@ namespace VehicleAccounting
             brandDropDown.Items.Clear();
             brandDropDownSave.Items.Clear();
             Form1_Load();
+        }
+
+        private void saveOwner_Click(object sender, EventArgs e)
+        {
+            String firstName = textBox3.Text;
+            String lastName = textBox4.Text;
+            String passportNumber = textBox5.Text;
+
+            DataTable ownerList = _ar.FindOwnerByPassportNumber(passportNumber);
+
+            if (ownerList.Rows.Count == 0)
+                _ar.SaveOwner(firstName, lastName, passportNumber);
+            else
+                MessageBox.Show(@"Owner exist");
         }
     }
 }

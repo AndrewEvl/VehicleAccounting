@@ -4,7 +4,7 @@ namespace VehicleAccounting
 {
     class DB
     {
-        private readonly MySqlConnection _connection = new("server=localhost;port=3306;username=user;password=root;database=car_library");
+        private readonly MySqlConnection _connection = new("server=localhost;port=3306;username=root;password=root;database=car_library");
 
         public void OpenConnection()
         {

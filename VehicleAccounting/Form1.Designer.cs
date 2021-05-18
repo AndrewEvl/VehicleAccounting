@@ -187,6 +187,7 @@
             this.saveOwner.TabIndex = 7;
             this.saveOwner.Text = "Save";
             this.saveOwner.UseVisualStyleBackColor = true;
+            this.saveOwner.Click += new System.EventHandler(this.saveOwner_Click);
             // 
             // saveModel
             // 
