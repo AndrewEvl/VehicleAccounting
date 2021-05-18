@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -127,6 +128,7 @@ namespace VehicleAccounting
 
         public void SaveBrand(String brandName)
         {
+            _db.OpenConnection();
             MySqlCommand saveBrand = new MySqlCommand(
                 "INSERT INTO car_brand (name) VALUES (@name);",
                 _db.GetConnection());
@@ -138,6 +140,7 @@ namespace VehicleAccounting
 
         public void SaveModel(String modelName, int brandId)
         {
+            _db.OpenConnection();
             MySqlCommand saveModel = new MySqlCommand(
                 "INSERT INTO car_model (name, car_brand_id) VALUES (@name, @id);",
                 _db.GetConnection());
@@ -169,6 +172,7 @@ namespace VehicleAccounting
 
         public void SaveOwner(String firstName, String lastName, String passportNumber)
         {
+            _db.OpenConnection();
             MySqlCommand saveOwnerQuery = new MySqlCommand(
                 "INSERT INTO car_owner (first_name, last_name, pasport_number) VALUES (@firstName, @lastName, @passportNumber);",
                 _db.GetConnection());
@@ -183,16 +187,17 @@ namespace VehicleAccounting
 
         public void SaveCar(int brandId, int modelId, int ownerId, int yearCar, float engineVolume)
         {
+            _db.OpenConnection();
             MySqlCommand saveCarQuery = new MySqlCommand(
                 "INSERT INTO car (brand_id, model_id, owner_id, year_car, engine_volume) VALUES (@brandId, @modelId, @ownerId, @yearCar, @engineVilume);",
                 _db.GetConnection());
-            
+
             saveCarQuery.Parameters.Add("@brandId", MySqlDbType.Int64).Value = brandId;
             saveCarQuery.Parameters.Add("@modelId", MySqlDbType.Int64).Value = modelId;
             saveCarQuery.Parameters.Add("@ownerId", MySqlDbType.Int64).Value = ownerId;
             saveCarQuery.Parameters.Add("@yearCar", MySqlDbType.Int64).Value = yearCar;
             saveCarQuery.Parameters.Add("@engineVolume", MySqlDbType.Float).Value = engineVolume;
-            
+
             MessageBox.Show(saveCarQuery.ExecuteNonQuery() == 1 ? @"OK" : @"Some problem");
             _db.CloseConnection();
         }
@@ -200,7 +205,7 @@ namespace VehicleAccounting
         public DataTable FindOwnerByPassportNumber(String passportNumber)
         {
             DataTable ownerList = new DataTable();
-            
+
             MySqlCommand findBrandByNameQuery = new MySqlCommand(
                 "SELECT * FROM car_owner WHERE car_owner.pasport_number LIKE @passportNumber",
                 _db.GetConnection());
@@ -212,6 +217,13 @@ namespace VehicleAccounting
             _db.CloseConnection();
 
             return ownerList;
+        }
+
+        public Boolean ChackValidCarNumber(String carNumber)
+        {
+            var regex = new Regex("");
+
+            return regex.IsMatch(carNumber);
         }
     }
 }

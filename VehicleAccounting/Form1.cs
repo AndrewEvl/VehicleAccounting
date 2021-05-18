@@ -108,7 +108,20 @@ namespace VehicleAccounting
             if (ownerList.Rows.Count == 0)
                 _ar.SaveOwner(firstName, lastName, passportNumber);
             else
-                MessageBox.Show(@"Owner exist");
+                MessageBox.Show(@"Owner already exist");
+        }
+
+        private void saveModel_Click(object sender, EventArgs e)
+        {
+            Item selectItem = (Item) brandDropDownSave.SelectedItem;
+            String modelName = textBox2.Text;
+
+            DataTable modelList = _ar.FindModelByNameAndBrandId(modelName, selectItem.Id);
+            
+            if(modelList.Rows.Count == 0)
+                _ar.SaveModel(modelName, selectItem.Id);
+            else
+                MessageBox.Show(@"Car model already exists");
         }
     }
 }

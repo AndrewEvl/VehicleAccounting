@@ -197,6 +197,7 @@
             this.saveModel.TabIndex = 6;
             this.saveModel.Text = "Save";
             this.saveModel.UseVisualStyleBackColor = true;
+            this.saveModel.Click += new System.EventHandler(this.saveModel_Click);
             // 
             // saveBrand
             // 
