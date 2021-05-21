@@ -23,6 +23,19 @@ namespace VehicleAccounting
 
             return table;
         }
+        
+        public DataTable FindAllOwner()
+        {
+            DataTable table = new DataTable();
+            MySqlCommand finaAllOwnerQuery = new MySqlCommand("SELECT * FROM car_owner", _db.GetConnection());
+
+            _db.OpenConnection();
+            _adapter.SelectCommand = finaAllOwnerQuery;
+            _adapter.Fill(table);
+            _db.CloseConnection();
+
+            return table;
+        }
 
 
         public DataTable FindModelByBrandId(int brandId)
@@ -185,21 +198,30 @@ namespace VehicleAccounting
             _db.CloseConnection();
         }
 
-        public void SaveCar(int brandId, int modelId, int ownerId, int yearCar, float engineVolume)
+        public void SaveCar(int brandId, int modelId, int ownerId, int yearCar, double engineVolume, String carNumber)
         {
-            _db.OpenConnection();
-            MySqlCommand saveCarQuery = new MySqlCommand(
-                "INSERT INTO car (brand_id, model_id, owner_id, year_car, engine_volume) VALUES (@brandId, @modelId, @ownerId, @yearCar, @engineVilume);",
-                _db.GetConnection());
 
-            saveCarQuery.Parameters.Add("@brandId", MySqlDbType.Int64).Value = brandId;
-            saveCarQuery.Parameters.Add("@modelId", MySqlDbType.Int64).Value = modelId;
-            saveCarQuery.Parameters.Add("@ownerId", MySqlDbType.Int64).Value = ownerId;
-            saveCarQuery.Parameters.Add("@yearCar", MySqlDbType.Int64).Value = yearCar;
-            saveCarQuery.Parameters.Add("@engineVolume", MySqlDbType.Float).Value = engineVolume;
+            if (CheckValidCarNumber(carNumber))
+            {
+                _db.OpenConnection();
+                MySqlCommand saveCarQuery = new MySqlCommand(
+                    "INSERT INTO car (brand_id, model_id, owner_id, year_car, engine_volume, number_car) VALUES (@brandId, @modelId, @ownerId, @yearCar, @engineVolume, @numberCar);",
+                    _db.GetConnection());
 
-            MessageBox.Show(saveCarQuery.ExecuteNonQuery() == 1 ? @"OK" : @"Some problem");
-            _db.CloseConnection();
+                saveCarQuery.Parameters.Add("@brandId", MySqlDbType.Int64).Value = brandId;
+                saveCarQuery.Parameters.Add("@modelId", MySqlDbType.Int64).Value = modelId;
+                saveCarQuery.Parameters.Add("@ownerId", MySqlDbType.Int64).Value = ownerId;
+                saveCarQuery.Parameters.Add("@yearCar", MySqlDbType.Int64).Value = yearCar;
+                saveCarQuery.Parameters.Add("@engineVolume", MySqlDbType.Float).Value = engineVolume;
+                saveCarQuery.Parameters.Add("@numberCar", MySqlDbType.VarChar).Value = carNumber;
+
+                MessageBox.Show(saveCarQuery.ExecuteNonQuery() == 1 ? @"OK" : @"Some problem");
+                _db.CloseConnection();
+            }
+            else
+            {
+                MessageBox.Show(@"Not valid car number"); 
+            }
         }
 
         public DataTable FindOwnerByPassportNumber(String passportNumber)
@@ -219,11 +241,15 @@ namespace VehicleAccounting
             return ownerList;
         }
 
-        public Boolean ChackValidCarNumber(String carNumber)
+        public Boolean CheckValidCarNumber(String carNumber)
         {
-            var regex = new Regex("");
+            Regex regex = new Regex(@"[0-9]{4}[A-Z]{2}[-][1-7]");
+            Regex regexTruck = new Regex(@"[A-Z]{2}[0-9]{4}[-][1-7]");
+            Regex regexTrailer = new Regex(@"[A-Z]{1}[0-9]{4}[A-Z]{1}[-][1-7]");
 
-            return regex.IsMatch(carNumber);
+            return regex.IsMatch(carNumber) || 
+                   regexTruck.IsMatch(carNumber) || 
+                   regexTrailer.IsMatch(carNumber);
         }
     }
 }

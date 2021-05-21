@@ -17,4 +17,19 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="CarSave.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="OwnerSave.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="BrandSave.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="ModelSave.cs">
+        <SubType>Form</SubType>
+      </Compile>
+    </ItemGroup>
+
 </Project>

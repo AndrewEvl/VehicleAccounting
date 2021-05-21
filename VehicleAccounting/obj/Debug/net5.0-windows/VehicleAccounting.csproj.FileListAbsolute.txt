@@ -64,3 +64,7 @@ C:\Users\Acer\Source\Repos\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-
 C:\Users\Acer\Source\Repos\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\ref\VehicleAccounting.dll
 C:\Users\Acer\Source\Repos\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\VehicleAccounting.pdb
 C:\Users\Acer\Source\Repos\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\VehicleAccounting.genruntimeconfig.cache
+C:\Users\Lino2\RiderProjects\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\VehicleAccounting.Form2.resources
+C:\Users\Lino2\RiderProjects\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\VehicleAccounting.BrandSave.resources
+C:\Users\Lino2\RiderProjects\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\VehicleAccounting.ModelSave.resources
+C:\Users\Lino2\RiderProjects\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\VehicleAccounting.OwnerSave.resources

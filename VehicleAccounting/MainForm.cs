@@ -23,9 +23,6 @@ namespace VehicleAccounting
             {
                 brandDropDown.Items.Add(new Item(Convert.ToInt16(allBrandTable.Rows[i]["id"]),
                     Convert.ToString(allBrandTable.Rows[i]["name"])));
-
-                brandDropDownSave.Items.Add(new Item(Convert.ToInt16(allBrandTable.Rows[i]["id"]),
-                    Convert.ToString(allBrandTable.Rows[i]["name"])));
             }
         }
 
@@ -77,51 +74,45 @@ namespace VehicleAccounting
             LoadData(carTable);
         }
 
-        private void saveBrand_Click(object sender, EventArgs e)
-        {
-            String newBrandName = textBox1.Text;
-            DataTable brandList = _ar.FindBrandByName(newBrandName);
-
-            if (brandList.Rows.Count == 0)
-                _ar.SaveBrand(newBrandName);
-            else
-                MessageBox.Show(@"Such a brand (" + newBrandName + @") already exists");
-            RefreshData();
-        }
-
         private void RefreshData()
         {
             modelDropDown.Items.Clear();
             brandDropDown.Items.Clear();
-            brandDropDownSave.Items.Clear();
             Form1_Load();
         }
 
-        private void saveOwner_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            String firstName = textBox3.Text;
-            String lastName = textBox4.Text;
-            String passportNumber = textBox5.Text;
-
-            DataTable ownerList = _ar.FindOwnerByPassportNumber(passportNumber);
-
-            if (ownerList.Rows.Count == 0)
-                _ar.SaveOwner(firstName, lastName, passportNumber);
-            else
-                MessageBox.Show(@"Owner already exist");
+            Form2 form2 = new Form2();
+            form2.Show();
         }
 
-        private void saveModel_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            Item selectItem = (Item) brandDropDownSave.SelectedItem;
-            String modelName = textBox2.Text;
+            ModelSave modelSaveForm = new ModelSave();
+            modelSaveForm.Show();
+        }
 
-            DataTable modelList = _ar.FindModelByNameAndBrandId(modelName, selectItem.Id);
-            
-            if(modelList.Rows.Count == 0)
-                _ar.SaveModel(modelName, selectItem.Id);
-            else
-                MessageBox.Show(@"Car model already exists");
+        private void button5_Click(object sender, EventArgs e)
+        {
+            BrandSave brandSaveForm = new BrandSave();
+            brandSaveForm.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OwnerSave ownerSaveForm = new OwnerSave();
+            ownerSaveForm.Show();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
