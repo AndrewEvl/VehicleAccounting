@@ -36,6 +36,12 @@
       <Compile Update="OwnerUpdate.cs">
         <SubType>Form</SubType>
       </Compile>
+      <Compile Update="BrandUpdate.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="ModelUpdate.cs">
+        <SubType>Form</SubType>
+      </Compile>
     </ItemGroup>
 
 </Project>

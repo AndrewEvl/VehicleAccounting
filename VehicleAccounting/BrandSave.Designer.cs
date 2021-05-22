@@ -70,6 +70,7 @@ namespace VehicleAccounting
             this.Controls.Add(this.label2);
             this.Controls.Add(this.saveBrand);
             this.Controls.Add(this.textBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "BrandSave";
             this.Text = "BrandSave";
             this.ResumeLayout(false);

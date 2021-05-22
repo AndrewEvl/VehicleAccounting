@@ -36,7 +36,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.searchText = new System.Windows.Forms.TextBox();
             this.searthButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -50,9 +49,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(437, 6);
+            this.button3.Location = new System.Drawing.Point(122, 37);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(109, 23);
+            this.button3.Size = new System.Drawing.Size(92, 23);
             this.button3.TabIndex = 36;
             this.button3.Text = "Add car";
             this.button3.UseVisualStyleBackColor = true;
@@ -72,7 +71,7 @@
             // 
             this.modelDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.modelDropDown.FormattingEnabled = true;
-            this.modelDropDown.Location = new System.Drawing.Point(12, 37);
+            this.modelDropDown.Location = new System.Drawing.Point(12, 39);
             this.modelDropDown.Name = "modelDropDown";
             this.modelDropDown.Size = new System.Drawing.Size(104, 21);
             this.modelDropDown.TabIndex = 3;
@@ -89,14 +88,14 @@
             // 
             // searchText
             // 
-            this.searchText.Location = new System.Drawing.Point(244, 9);
+            this.searchText.Location = new System.Drawing.Point(244, 8);
             this.searchText.Name = "searchText";
-            this.searchText.Size = new System.Drawing.Size(89, 20);
+            this.searchText.Size = new System.Drawing.Size(166, 20);
             this.searchText.TabIndex = 5;
             // 
             // searthButton
             // 
-            this.searthButton.Location = new System.Drawing.Point(339, 7);
+            this.searthButton.Location = new System.Drawing.Point(416, 7);
             this.searthButton.Name = "searthButton";
             this.searthButton.Size = new System.Drawing.Size(92, 24);
             this.searthButton.TabIndex = 6;
@@ -104,20 +103,11 @@
             this.searthButton.UseVisualStyleBackColor = true;
             this.searthButton.Click += new System.EventHandler(this.SearchLastNameButtonClick);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(339, 34);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 24);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Searth car number";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(437, 35);
+            this.button2.Location = new System.Drawing.Point(416, 37);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(109, 23);
+            this.button2.Size = new System.Drawing.Size(92, 23);
             this.button2.TabIndex = 37;
             this.button2.Text = "Add owner";
             this.button2.UseVisualStyleBackColor = true;
@@ -125,9 +115,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(552, 35);
+            this.button4.Location = new System.Drawing.Point(220, 37);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(109, 23);
+            this.button4.Size = new System.Drawing.Size(92, 23);
             this.button4.TabIndex = 38;
             this.button4.Text = "Add model";
             this.button4.UseVisualStyleBackColor = true;
@@ -135,9 +125,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(552, 6);
+            this.button5.Location = new System.Drawing.Point(318, 37);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(109, 23);
+            this.button5.Size = new System.Drawing.Size(92, 23);
             this.button5.TabIndex = 37;
             this.button5.Text = "Add brand";
             this.button5.UseVisualStyleBackColor = true;
@@ -160,7 +150,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(681, 6);
+            this.button6.Location = new System.Drawing.Point(514, 8);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(92, 23);
             this.button6.TabIndex = 40;
@@ -170,9 +160,9 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(779, 35);
+            this.button8.Location = new System.Drawing.Point(612, 8);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(109, 23);
+            this.button8.Size = new System.Drawing.Size(92, 23);
             this.button8.TabIndex = 42;
             this.button8.Text = "Update model";
             this.button8.UseVisualStyleBackColor = true;
@@ -180,9 +170,9 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(779, 6);
+            this.button9.Location = new System.Drawing.Point(514, 37);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(109, 23);
+            this.button9.Size = new System.Drawing.Size(92, 23);
             this.button9.TabIndex = 43;
             this.button9.Text = "Update brand";
             this.button9.UseVisualStyleBackColor = true;
@@ -190,7 +180,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(681, 35);
+            this.button10.Location = new System.Drawing.Point(710, 8);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(92, 23);
             this.button10.TabIndex = 44;
@@ -213,12 +203,12 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.searthButton);
             this.Controls.Add(this.searchText);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.modelDropDown);
             this.Controls.Add(this.brandDropDown);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Vehicle Accounting";
@@ -242,8 +232,6 @@
         private System.Windows.Forms.ComboBox brandDropDown;
 
         private System.Windows.Forms.ComboBox modelDropDown;
-
-        private System.Windows.Forms.Button button1;
 
         private System.Windows.Forms.TextBox searchText;
 

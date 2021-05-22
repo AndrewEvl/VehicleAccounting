@@ -83,6 +83,7 @@ namespace VehicleAccounting
             this.Controls.Add(this.label3);
             this.Controls.Add(this.saveModel);
             this.Controls.Add(this.textBox2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
             this.Name = "ModelSave";
             this.Text = "ModelSave";

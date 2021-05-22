@@ -100,12 +100,14 @@ namespace VehicleAccounting
 
         private void button9_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            BrandUpdate brandUpdateForm = new BrandUpdate();
+            brandUpdateForm.Show();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            ModelUpdate modelUpdateForm = new ModelUpdate();
+            modelUpdateForm.Show();
         }
 
         private void button10_Click(object sender, EventArgs e)
