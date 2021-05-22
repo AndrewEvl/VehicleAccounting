@@ -23,6 +23,48 @@ namespace VehicleAccounting
 
             return table;
         }
+
+        public DataTable FindBrandById(long brandId)
+        {
+            DataTable table = new DataTable();
+            MySqlCommand finaBrandByIdQuery = new MySqlCommand("SELECT * FROM car_brand WHERE id = @Id", _db.GetConnection());
+            finaBrandByIdQuery.Parameters.Add("@bId", MySqlDbType.Int64).Value = brandId;
+            
+            _db.OpenConnection();
+            _adapter.SelectCommand = finaBrandByIdQuery;
+            _adapter.Fill(table);
+            _db.CloseConnection();
+
+            return table;
+        }
+
+        public DataTable FindModelById(long modelId)
+        {
+            DataTable table = new DataTable();
+            MySqlCommand finaModelByIdQuery = new MySqlCommand("SELECT * FROM car_model WHERE id = @Id", _db.GetConnection());
+            finaModelByIdQuery.Parameters.Add("@bId", MySqlDbType.Int64).Value = modelId;
+            
+            _db.OpenConnection();
+            _adapter.SelectCommand = finaModelByIdQuery;
+            _adapter.Fill(table);
+            _db.CloseConnection();
+
+            return table;
+        }
+
+        public DataTable FindOwnerById(long ownerId)
+        {
+            DataTable table = new DataTable();
+            MySqlCommand finaOwnerByIdQuery = new MySqlCommand("SELECT * FROM car_owner WHERE id = @Id", _db.GetConnection());
+            finaOwnerByIdQuery.Parameters.Add("@bId", MySqlDbType.Int64).Value = ownerId;
+            
+            _db.OpenConnection();
+            _adapter.SelectCommand = finaOwnerByIdQuery;
+            _adapter.Fill(table);
+            _db.CloseConnection();
+
+            return table;
+        }
         
         public DataTable FindAllOwner()
         {
@@ -70,6 +112,8 @@ namespace VehicleAccounting
 
             return carTable;
         }
+        
+        
 
         public DataTable FindCarBeModelIdAndBrandId(int modelId, int brandId)
         {
@@ -110,7 +154,7 @@ namespace VehicleAccounting
             DataTable carTable = new DataTable();
 
             MySqlCommand findCar = new MySqlCommand(
-                "Select car.id AS id, co.first_name AS firstName, co.last_name AS lastName, car.number_car AS numberCar, cb.name AS carBrand, cm.name AS carModel FROM car INNER JOIN car_model cm on car.model_id = cm.id INNER JOIN car_owner co on car.owner_id = co.id INNER JOIN car_brand cb on cm.car_brand_id = cb.id WHERE car.number_car LIKE @cn;",
+                "Select car.id AS id, co.first_name AS firstName, co.last_name AS lastName, car.number_car AS numberCar, cb.name AS carBrand, cm.name AS carModel ,car.year_car AS carYear FROM car INNER JOIN car_model cm on car.model_id = cm.id INNER JOIN car_owner co on car.owner_id = co.id INNER JOIN car_brand cb on cm.car_brand_id = cb.id WHERE car.number_car LIKE @cn;",
                 _db.GetConnection());
             findCar.Parameters.Add("@cn", MySqlDbType.VarChar).Value = carNumber;
 
@@ -197,6 +241,22 @@ namespace VehicleAccounting
             MessageBox.Show(saveOwnerQuery.ExecuteNonQuery() == 1 ? @"OK" : @"Some problem");
             _db.CloseConnection();
         }
+        
+        public void UpdateOwner(long id, String firstName, String lastName, String passportNumber)
+        {
+            _db.OpenConnection();
+            MySqlCommand saveOwnerQuery = new MySqlCommand(
+                "UPDATE car_owner SET first_name = @firstName, last_name =@lastName, pasport_number = @passportNumber WHERE id = @id;",
+                _db.GetConnection());
+
+            saveOwnerQuery.Parameters.Add("@id", MySqlDbType.Int64).Value = id;
+            saveOwnerQuery.Parameters.Add("@firstName", MySqlDbType.VarChar).Value = firstName;
+            saveOwnerQuery.Parameters.Add("@lastName", MySqlDbType.VarChar).Value = lastName;
+            saveOwnerQuery.Parameters.Add("@passportNumber", MySqlDbType.VarChar).Value = passportNumber;
+
+            MessageBox.Show(saveOwnerQuery.ExecuteNonQuery() == 1 ? @"OK" : @"Some problem");
+            _db.CloseConnection();
+        }
 
         public void SaveCar(int brandId, int modelId, int ownerId, int yearCar, double engineVolume, String carNumber)
         {
@@ -215,7 +275,7 @@ namespace VehicleAccounting
                 saveCarQuery.Parameters.Add("@engineVolume", MySqlDbType.Float).Value = engineVolume;
                 saveCarQuery.Parameters.Add("@numberCar", MySqlDbType.VarChar).Value = carNumber;
 
-                MessageBox.Show(saveCarQuery.ExecuteNonQuery() == 1 ? @"OK" : @"Some problem");
+                MessageBox.Show(saveCarQuery.ExecuteNonQuery() == 1 ? @"Car saved" : @"Some problem");
                 _db.CloseConnection();
             }
             else
@@ -223,6 +283,28 @@ namespace VehicleAccounting
                 MessageBox.Show(@"Not valid car number"); 
             }
         }
+
+        public void UpdateCar(long id, String carNumber)
+        {
+            if (CheckValidCarNumber(carNumber))
+            {
+                _db.OpenConnection();
+                MySqlCommand updateCarQuery = new MySqlCommand(
+                    "UPDATE car SET number_car = @numberCar WHERE id = @Id;",
+                    _db.GetConnection());
+
+                updateCarQuery.Parameters.Add("@Id", MySqlDbType.Int64).Value = id;
+                updateCarQuery.Parameters.Add("@numberCar", MySqlDbType.VarChar).Value = carNumber;
+
+                MessageBox.Show(updateCarQuery.ExecuteNonQuery() == 1 ? @"Car updated" : @"Some problem");
+                _db.CloseConnection();
+            }
+            else
+            {
+                MessageBox.Show(@"Not valid car number");
+            }
+        }
+
 
         public DataTable FindOwnerByPassportNumber(String passportNumber)
         {

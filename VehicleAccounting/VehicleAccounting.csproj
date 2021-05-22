@@ -30,6 +30,12 @@
       <Compile Update="ModelSave.cs">
         <SubType>Form</SubType>
       </Compile>
+      <Compile Update="CarInformation.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="OwnerUpdate.cs">
+        <SubType>Form</SubType>
+      </Compile>
     </ItemGroup>
 
 </Project>

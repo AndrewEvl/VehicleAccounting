@@ -67,13 +67,6 @@ namespace VehicleAccounting
             LoadData(carTable);
         }
 
-        private void SearchCarNumberButtonClick(object sender, EventArgs e)
-        {
-            String carNumber = seathCarNumberField.Text;
-            DataTable carTable = _ar.FindCarByNumber(carNumber);
-            LoadData(carTable);
-        }
-
         private void RefreshData()
         {
             modelDropDown.Items.Clear();
@@ -113,6 +106,18 @@ namespace VehicleAccounting
         private void button8_Click(object sender, EventArgs e)
         {
             throw new System.NotImplementedException();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            CarInformation carInformationForm = new CarInformation();
+            carInformationForm.Show();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            OwnerUpdate ownerUpdateForm = new OwnerUpdate();
+            ownerUpdateForm.Show();
         }
     }
 }
