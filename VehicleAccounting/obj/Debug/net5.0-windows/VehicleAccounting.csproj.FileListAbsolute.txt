@@ -71,3 +71,4 @@ C:\Users\Lino2\RiderProjects\VehicleAccounting\VehicleAccounting\obj\Debug\net5.
 C:\Users\Lino2\RiderProjects\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\VehicleAccounting.CarInformation.resources
 C:\Users\Lino2\RiderProjects\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\VehicleAccounting.OwnerUpdate.resources
 C:\Users\Lino2\RiderProjects\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\VehicleAccounting.BrandUpdate.resources
+C:\Users\Lino2\RiderProjects\VehicleAccounting\VehicleAccounting\obj\Debug\net5.0-windows\VehicleAccounting.ModelUpdate.resources

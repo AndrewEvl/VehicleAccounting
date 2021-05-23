@@ -222,6 +222,20 @@ namespace VehicleAccounting
             MessageBox.Show(saveModel.ExecuteNonQuery() == 1 ? @"OK" : @"Some problem");
             _db.CloseConnection();
         }
+        
+        public void UpdateModel(String newName, int modelId)
+        {
+            _db.OpenConnection();
+            MySqlCommand saveModel = new MySqlCommand(
+                "UPDATE car_model SET  name =@name WHERE id = @id;",
+                _db.GetConnection());
+
+            saveModel.Parameters.Add("@name", MySqlDbType.VarChar).Value = newName;
+            saveModel.Parameters.Add("@id", MySqlDbType.Int64).Value = modelId;
+
+            MessageBox.Show(saveModel.ExecuteNonQuery() == 1 ? @"Model updated" : @"Some problem");
+            _db.CloseConnection();
+        }
 
         public DataTable FindModelByNameAndBrandId(String modelName, int brandId)
         {
