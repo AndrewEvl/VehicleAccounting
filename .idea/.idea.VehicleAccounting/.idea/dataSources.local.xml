@@ -2,7 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="RD-211.7142.19">
     <data-source name="car_library" uuid="e765722a-9f77-4b44-8de4-bf50312a9a39">
-      <database-info product="MySQL" version="8.0.24" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL" exact-version="8.0.24" exact-driver-version="8.0">
+      <database-info product="MySQL" version="8.0.16" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL" exact-version="8.0.16" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>

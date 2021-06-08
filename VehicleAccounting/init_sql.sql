@@ -31,6 +31,12 @@ Create table car (
                      foreign key (owner_id) references car_owner (id)
 );
 
+Create table user ( id bigint primary key auto_increment,
+                    name varchar (30),
+                    password varchar(15));
+                    
+insert into user (name, password) values ('root', 'root');
+
 insert into car_brand (name) values ("BMW");
 insert into car_brand (name) values ("Mersedes");
 insert into car_brand (name) values ("Honda");

@@ -360,6 +360,53 @@ namespace VehicleAccounting
             return ownerList;
         }
 
+        public Boolean findUserByPasswordAndName (String name, String password)
+        {
+            DataTable userList = new DataTable();
+
+            MySqlCommand findUserByPasswordAndNameQuery = new MySqlCommand(
+                "SELECT * FROM user WHERE user.name Like @name And user.password Like @password",
+                _db.GetConnection());
+            findUserByPasswordAndNameQuery.Parameters.Add("@name", MySqlDbType.VarChar).Value = name;
+            findUserByPasswordAndNameQuery.Parameters.Add("@password", MySqlDbType.VarChar).Value = password;
+
+            _db.OpenConnection();
+            _adapter.SelectCommand = findUserByPasswordAndNameQuery;
+            _adapter.Fill(userList);
+            _db.CloseConnection();
+
+            if(userList.Rows.Count == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void SaveNewUser(String name, String password)
+        {
+            Boolean isClear = findUserByPasswordAndName(name, password);
+            if (!isClear)
+            {
+                _db.OpenConnection();
+                MySqlCommand saveUserQuery = new MySqlCommand(
+                    "insert into user(name, password) values(@name, @password);",
+                    _db.GetConnection());
+
+                saveUserQuery.Parameters.Add("@name", MySqlDbType.VarChar).Value = name;
+                saveUserQuery.Parameters.Add("@password", MySqlDbType.VarChar).Value = password;
+
+                MessageBox.Show(saveUserQuery.ExecuteNonQuery() == 1 ? @"Пользователь зарегестрирован" : @"Some problem");
+                _db.CloseConnection();
+            }
+            else
+            {
+                MessageBox.Show("Пользователь с логином " + name + " уже существует");
+            }
+        }
+
         public Boolean CheckValidCarNumber(String carNumber)
         {
             Regex regex = new Regex(@"[0-9]{4}[A-Z]{2}[-][1-7]");

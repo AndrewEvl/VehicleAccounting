@@ -58,6 +58,7 @@ namespace VehicleAccounting
         {
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = table;
+            dataGridView1.Columns.Remove("id");
         }
 
         private void SearchLastNameButtonClick(object sender, EventArgs e)
